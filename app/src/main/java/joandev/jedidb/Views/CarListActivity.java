@@ -25,7 +25,7 @@ public class CarListActivity extends ListActivity {
         setContentView(R.layout.activity_car_list);
 
 
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItems);
+        adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,listItems);
         setListAdapter(adapter);
 
         carHelper = new CarHelper(getApplicationContext());
@@ -36,6 +36,8 @@ public class CarListActivity extends ListActivity {
                 adapter.add(c.getString(c.getColumnIndex("name")));
             } while (c.moveToNext());
         }
+        c.close();
+
         ListView lv = getListView();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -48,6 +50,7 @@ public class CarListActivity extends ListActivity {
                         Toast.makeText(getApplicationContext(),cursor.getString(cursor.getColumnIndex("maxSpeed")),Toast.LENGTH_SHORT).show();
                     } while (cursor.moveToNext());
                 }
+                cursor.close();
             }
         });
     }
